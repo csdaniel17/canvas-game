@@ -14,7 +14,9 @@ var hero = {
   x: 200,
   y: 200
 };
-var heroSpeed = 5;
+var heroDirX = 0;
+var heroDirY = 0;
+var heroSpeed = 1;
 
 //add monster to board
 var monsterImage = new Image();
@@ -34,16 +36,28 @@ var monsterState = 'right';
 window.addEventListener('keydown', function(event) {
   var key = event.keyCode;
   if (key === 37) { //left
-    hero.x -= heroSpeed;
+    heroDirX = -1;
   } else if (key === 39) { //right
-    hero.x += heroSpeed;
+    heroDirX = 1;
   } else if (key === 38) { //up
-    hero.y -= heroSpeed;
+    heroDirY = -1;
   } else if (key === 40) {
-    hero.y += heroSpeed;
+    heroDirY = 1;
   }
-
   handleWrapping(hero);
+});
+
+window.addEventListener('keyup', function(event) {
+  var key = event.keyCode;
+  if (key === 37) { //left
+    heroDirX = 0;
+  } else if (key === 39) { //right
+    heroDirX = 0;
+  } else if (key === 38) { //up
+    heroDirY = 0;
+  } else if (key === 40) {
+    heroDirY = 0;
+  }
 });
 
 function handleWrapping(object) {
@@ -80,6 +94,10 @@ function main () {
   counter++;
   ctx.drawImage(backgroundImage, 0, 0);
   ctx.drawImage(heroImage, hero.x, hero.y);
+
+  //hero position
+  hero.x += heroDirX * heroSpeed;
+  hero.y += heroDirY * heroSpeed;
 
   //change monster direction
   if (counter % 50 === 0) {
