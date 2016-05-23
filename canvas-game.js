@@ -4,50 +4,57 @@ var backgroundImage = new Image();
 backgroundImage.src = 'images/background.png';
 var heroImage = new Image();
 heroImage.src = 'images/hero.png';
-var heroX = 200;
-var heroY = 200;
+var hero = {
+  x: 200,
+  y: 200
+}
 var heroSpeed = 5;
 
 //add monster to board
 var monsterImage = new Image();
 monsterImage.src = 'images/monster.png';
-var monsterX = 300;
-var monsterY = 300;
+var monster = {
+  x: 300,
+  y: 300
+}
 var monsterSpeed = 5;
 
 window.addEventListener('keydown', function(event) {
   var key = event.keyCode;
   if (key === 37) { //left
-    heroX -= heroSpeed;
+    hero.x -= heroSpeed;
   } else if (key === 39) { //right
-    heroX += heroSpeed;
+    hero.x += heroSpeed;
   } else if (key === 38) { //up
-    heroY -= heroSpeed;
+    hero.y -= heroSpeed;
   } else if (key === 40) {
-    heroY += heroSpeed;
+    hero.y += heroSpeed;
   }
 
-  if (heroX > 512) {
-    heroX = 0;
-  }
-  if (heroX < 0) {
-    heroX = 512;
-  }
-  if (heroY > 480) {
-    heroY = 0;
-  }
-  if (heroY < 0) {
-    heroY = 480;
-  }
-
-  console.log('heroX: ' + heroX);
+  handleWrapping(hero);
 });
+
+function handleWrapping(object) {
+  if (object.x > 512) {
+    object.x = 0;
+  }
+  if (object.x < 0) {
+    object.x = 512;
+  }
+  if (object.y > 480) {
+    object.y = 0;
+  }
+  if (object.y < 0) {
+    object.y = 480;
+  }
+}
 
 function main () {
   ctx.drawImage(backgroundImage, 0, 0);
-  ctx.drawImage(heroImage, heroX, heroY);
-  monsterX += monsterSpeed;
-  ctx.drawImage(monsterImage, monsterX, monsterY);
+  ctx.drawImage(heroImage, hero.x, hero.y);
+  monster.x += monsterSpeed;
+  handleWrapping(monster);
+  ctx.drawImage(monsterImage, monster.x, monster.y);
   requestAnimationFrame(main);
 }
 main();
