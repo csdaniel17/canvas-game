@@ -13,69 +13,87 @@ var heroImage = new Image();
 heroImage.src = 'images/hero.png';
 var hero = {
   x: 200,
-  y: 200
+  y: 200,
+  dirX: 0,
+  dirY: 0,
+  speed: 2
 };
+/*
 var heroDirX = 0;
 var heroDirY = 0;
 var heroSpeed = 5;
+*/
 
 //add monster to board
 var monsterImage = new Image();
 monsterImage.src = 'images/monster.png';
 var monster = {
   x: 300,
-  y: 300
+  y: 300,
+  dirX: 1,
+  dirY: 0,
+  speed: 1
 };
-
+/*
 var monsterDirX = 1;
 var monsterDirY = 0;
 var monsterSpeed = 1;
+*/
 
 //add 2 goblins to board
 var goblinImg1 = new Image();
 goblinImg1.src = 'images/goblin.png';
 var goblin1 = {
   x: 150,
-  y: 150
+  y: 150,
+  dirX: 1,
+  dirY: 0,
+  speed: 1
 };
+/*
 var goblin1DirX = 1;
 var goblin1DirY = 0;
 var goblin1Speed = 1;
-
+*/
 var goblinImg2 = new Image();
 goblinImg2.src = 'images/goblin.png';
 var goblin2 = {
   x: 250,
-  y: 250
+  y: 250,
+  dirX: 1,
+  dirY: 0,
+  speed: 1
 };
+/*
 var goblin2DirX = 1;
 var goblin2DirY = 0;
 var goblin2Speed = 1;
+*/
 
 //move hero around board
 window.addEventListener('keydown', function(event) {
   var key = event.keyCode;
   if (key === 37) { //left
-    heroDirX = -1;
+    hero.dirX = -1;
   } else if (key === 39) { //right
-    heroDirX = 1;
+    hero.dirX = 1;
   } else if (key === 38) { //up
-    heroDirY = -1;
+    hero.dirY = -1;
   } else if (key === 40) {
-    heroDirY = 1;
+    hero.dirY = 1;
   }
   handleWrapping(hero);
 });
 window.addEventListener('keyup', function(event) {
   var key = event.keyCode;
   if (key === 37) { //left
-    heroDirX = 0;
+    hero.dirX = 0;
   } else if (key === 39) { //right
-    heroDirX = 0;
+    hero.dirX = 0;
   } else if (key === 38) { //up
-    heroDirY = 0;
+    hero.dirY = 0;
   } else if (key === 40) {
-    heroDirY = 0;
+    hero.dirY = 0;
   }
 });
 
@@ -145,17 +163,17 @@ function main () {
   ctx.drawImage(heroImage, hero.x, hero.y);
 
   //hero position
-  hero.x += heroDirX * heroSpeed;
-  hero.y += heroDirY * heroSpeed;
+  hero.x += hero.dirX * hero.speed;
+  hero.y += hero.dirY * hero.speed;
 
   //change monster direction
   if (counter % 50 === 0) {
-    monsterDirX = Math.floor(Math.random() * 3) -1;
-    monsterDirY = Math.floor(Math.random() * 3) -1;
+    monster.dirX = Math.floor(Math.random() * 3) -1;
+    monster.dirY = Math.floor(Math.random() * 3) -1;
   }
   //update monster position
-  monster.x += monsterDirX * monsterSpeed;
-  monster.y += monsterDirY * monsterSpeed;
+  monster.x += monster.dirX * monster.speed;
+  monster.y += monster.dirY * monster.speed;
   handleWrapping(monster);
 
   if (monsterCollision()) {
@@ -187,22 +205,22 @@ function main () {
 
   //change goblin1 direction
   if (counter % 50 === 0) {
-    goblin1DirX = Math.floor(Math.random() * 3) -1;
-    goblin1DirY = Math.floor(Math.random() * 3) -1;
+    goblin1.dirX = Math.floor(Math.random() * 3) -1;
+    goblin1.dirY = Math.floor(Math.random() * 3) -1;
   }
   //update goblin1 position
-  goblin1.x += goblin1DirX * goblin1Speed;
-  goblin1.y += goblin1DirY * goblin1Speed;
+  goblin1.x += goblin1.dirX * goblin1.speed;
+  goblin1.y += goblin1.dirY * goblin1.speed;
   handleWrapping(goblin1);
 
   //change goblin2 direction
   if (counter % 50 === 0) {
-    goblin2DirX = Math.floor(Math.random() * 3) -1;
-    goblin2DirY = Math.floor(Math.random() * 3) -1;
+    goblin2.dirX = Math.floor(Math.random() * 3) -1;
+    goblin2.dirY = Math.floor(Math.random() * 3) -1;
   }
   //update goblin1 position
-  goblin2.x += goblin2DirX * goblin2Speed;
-  goblin2.y += goblin2DirY * goblin2Speed;
+  goblin2.x += goblin2.dirX * goblin2.speed;
+  goblin2.y += goblin2.dirY * goblin2.speed;
   handleWrapping(goblin2);
 
   ctx.drawImage(monsterImage, monster.x, monster.y);
