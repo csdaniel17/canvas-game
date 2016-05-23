@@ -1,3 +1,5 @@
+var score = 0;
+
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
@@ -59,44 +61,42 @@ function handleWrapping(object) {
   }
 }
 
-var counter = 0;
+function collision() {
+  //detect collision
+  if (hero.x + 32 < monster.x) {
+    return false;
+  } else if (monster.x + 32 < hero.x) {
+    return false;
+  } else if (hero.y + 32 < monster.y) {
+    return false;
+  } else if (monster.y + 32 < hero.y) {
+    return false;
+  }
+  return true;
+}
 
+var counter = 0;
 function main () {
   counter++;
   ctx.drawImage(backgroundImage, 0, 0);
   ctx.drawImage(heroImage, hero.x, hero.y);
+
+  //change monster direction
   if (counter % 50 === 0) {
     monsterDirX = Math.floor(Math.random() * 3) -1;
     monsterDirY = Math.floor(Math.random() * 3) -1;
   }
+  //update monster position
   monster.x += monsterDirX * monsterSpeed;
   monster.y += monsterDirY * monsterSpeed;
-
-  /*
-  if (monsterState === 'right') {
-    monster.x += monsterSpeed;
-  } else if (monsterState === 'left') {
-    monster.x += monsterSpeed;
-  } else if (monsterState === 'up') {
-    monster.y -= monsterSpeed;
-  } else if (monsterState === 'down') {
-    monster.y += monsterSpeed;
-  } else if (monsterState === 'up-right') {
-    monster.x += monsterSpeed;
-    monster.y -= monsterSpeed;
-  } else if (monsterState === 'up-left') {
-    monster.x -= monsterSpeed;
-    monster.y -= monsterSpeed;
-  } else if (monsterState === 'down-right') {
-    monster.x += monsterSpeed;
-    monster.y += monsterSpeed;
-  } else if (monsterState === 'down-left') {
-    monster.x -= monsterSpeed;
-    monster.y += monsterSpeed;
-  }
-  */
-
   handleWrapping(monster);
+
+  if (collision()) {
+    score++;
+    monster.x = Math.random() * 512;
+    monster.y = Math.random() * 480;
+  }
+
   ctx.drawImage(monsterImage, monster.x, monster.y);
   requestAnimationFrame(main);
 }
