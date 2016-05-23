@@ -22,8 +22,12 @@ var monster = {
   y: 300
 };
 var monsterSpeed = 5;
+var monsterDirX = 1;
+var monsterDirY = 0;
+/*
 var monsterStates = ['right', 'left', 'up', 'down', 'up-right', 'up-left', 'down-right', 'down-left'];
 var monsterState = 'right';
+*/
 
 window.addEventListener('keydown', function(event) {
   var key = event.keyCode;
@@ -62,9 +66,13 @@ function main () {
   ctx.drawImage(backgroundImage, 0, 0);
   ctx.drawImage(heroImage, hero.x, hero.y);
   if (counter % 50 === 0) {
-    var idx = Math.floor(Math.random() * monsterStates.length);
-    monsterState = monsterStates[idx];
+    monsterDirX = Math.floor(Math.random() * 3) -1;
+    monsterDirY = Math.floor(Math.random() * 3) -1;
   }
+  monster.x += monsterDirX * monsterSpeed;
+  monster.y += monsterDirY * monsterSpeed;
+
+  /*
   if (monsterState === 'right') {
     monster.x += monsterSpeed;
   } else if (monsterState === 'left') {
@@ -86,6 +94,7 @@ function main () {
     monster.x -= monsterSpeed;
     monster.y += monsterSpeed;
   }
+  */
 
   handleWrapping(monster);
   ctx.drawImage(monsterImage, monster.x, monster.y);
