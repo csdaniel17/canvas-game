@@ -97,22 +97,6 @@ window.addEventListener('keyup', function(event) {
   }
 });
 
-//players wrap around board
-function handleWrapping(object) {
-  if (object.x > 512) {
-    object.x = 0;
-  }
-  if (object.x < 0) {
-    object.x = 512;
-  }
-  if (object.y > 480) {
-    object.y = 0;
-  }
-  if (object.y < 0) {
-    object.y = 480;
-  }
-}
-
 //detect collision
 //hero & monster
 function monsterCollision() {
@@ -156,6 +140,34 @@ function goblin2Collision() {
   return true;
 }
 
+//players wrap around board
+function handleWrapping(object) {
+  if (object.x > 512) {
+    object.x = 0;
+  }
+  if (object.x < 0) {
+    object.x = 512;
+  }
+  if (object.y > 480) {
+    object.y = 0;
+  }
+  if (object.y < 0) {
+    object.y = 480;
+  }
+}
+
+function updateEnemy(enemy) {
+  //change enemy direction
+  if (counter % 50 === 0) {
+    enemy.dirX = Math.floor(Math.random() * 3) -1;
+    enemy.dirY = Math.floor(Math.random() * 3) -1;
+  }
+  //update enemy position
+  enemy.x += enemy.dirX * enemy.speed;
+  enemy.y += enemy.dirY * enemy.speed;
+  handleWrapping(enemy);
+}
+
 var counter = 0;
 function main () {
   counter++;
@@ -166,6 +178,11 @@ function main () {
   hero.x += hero.dirX * hero.speed;
   hero.y += hero.dirY * hero.speed;
 
+  updateEnemy(monster);
+  updateEnemy(goblin1);
+  updateEnemy(goblin2);
+
+/*
   //change monster direction
   if (counter % 50 === 0) {
     monster.dirX = Math.floor(Math.random() * 3) -1;
@@ -176,6 +193,26 @@ function main () {
   monster.y += monster.dirY * monster.speed;
   handleWrapping(monster);
 
+  //change goblin1 direction
+  if (counter % 50 === 0) {
+    goblin1.dirX = Math.floor(Math.random() * 3) -1;
+    goblin1.dirY = Math.floor(Math.random() * 3) -1;
+  }
+  //update goblin1 position
+  goblin1.x += goblin1.dirX * goblin1.speed;
+  goblin1.y += goblin1.dirY * goblin1.speed;
+  handleWrapping(goblin1);
+
+  //change goblin2 direction
+  if (counter % 50 === 0) {
+    goblin2.dirX = Math.floor(Math.random() * 3) -1;
+    goblin2.dirY = Math.floor(Math.random() * 3) -1;
+  }
+  //update goblin1 position
+  goblin2.x += goblin2.dirX * goblin2.speed;
+  goblin2.y += goblin2.dirY * goblin2.speed;
+  handleWrapping(goblin2);
+*/
   if (monsterCollision()) {
     score++;
     if (score > highScore) {
@@ -202,26 +239,6 @@ function main () {
     goblin2.x = Math.random() * 512;
     goblin2.y = Math.random() * 480;
   }
-
-  //change goblin1 direction
-  if (counter % 50 === 0) {
-    goblin1.dirX = Math.floor(Math.random() * 3) -1;
-    goblin1.dirY = Math.floor(Math.random() * 3) -1;
-  }
-  //update goblin1 position
-  goblin1.x += goblin1.dirX * goblin1.speed;
-  goblin1.y += goblin1.dirY * goblin1.speed;
-  handleWrapping(goblin1);
-
-  //change goblin2 direction
-  if (counter % 50 === 0) {
-    goblin2.dirX = Math.floor(Math.random() * 3) -1;
-    goblin2.dirY = Math.floor(Math.random() * 3) -1;
-  }
-  //update goblin1 position
-  goblin2.x += goblin2.dirX * goblin2.speed;
-  goblin2.y += goblin2.dirY * goblin2.speed;
-  handleWrapping(goblin2);
 
   ctx.drawImage(monsterImage, monster.x, monster.y);
   ctx.drawImage(goblinImg1, goblin1.x, goblin1.y);
