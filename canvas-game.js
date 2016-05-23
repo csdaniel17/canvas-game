@@ -98,6 +98,9 @@ function main () {
   }
 
   ctx.drawImage(monsterImage, monster.x, monster.y);
+  //add score
+  ctx.font = "32px sans-serif";
+  ctx.fillText('Score: ' + score, 35, 60)
   requestAnimationFrame(main);
 }
 main();
