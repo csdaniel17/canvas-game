@@ -1,12 +1,13 @@
 * {
-  margin: 20px;
+  margin: 15px;
   padding: 0;
   box-sizing: border-box;
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   text-align: center;
   color: #808080;
+  background: url(redox_02.png);
 }
 
-body {
-  background: url(redox_02.png);
+#message {
+  height: 25px;
 }
