@@ -1,0 +1,12 @@
+* {
+  margin: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  text-align: center;
+  color: #808080;
+}
+
+body {
+  background: url(redox_02.png);
+}
