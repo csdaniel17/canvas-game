@@ -1,4 +1,5 @@
 var score = 0;
+var highScore = 0;
 
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -16,7 +17,7 @@ var hero = {
 };
 var heroDirX = 0;
 var heroDirY = 0;
-var heroSpeed = 1;
+var heroSpeed = 5;
 
 //add monster to board
 var monsterImage = new Image();
@@ -95,7 +96,8 @@ function handleWrapping(object) {
 }
 
 //detect collision
-function collision() {
+//hero & monster
+function monsterCollision() {
   if (hero.x + 32 < monster.x) {
     return false;
   } else if (monster.x + 32 < hero.x) {
@@ -103,6 +105,34 @@ function collision() {
   } else if (hero.y + 32 < monster.y) {
     return false;
   } else if (monster.y + 32 < hero.y) {
+    return false;
+  }
+  return true;
+}
+
+//hero & goblin1
+function goblin1Collision() {
+  if (hero.x + 32 < goblin1.x) {
+    return false;
+  } else if (goblin1.x + 32 < hero.x) {
+    return false;
+  } else if (hero.y + 32 < goblin1.y) {
+    return false;
+  } else if (goblin1.y + 32 < hero.y) {
+    return false;
+  }
+  return true;
+}
+
+//hero & goblin2
+function goblin2Collision() {
+  if (hero.x + 32 < goblin2.x) {
+    return false;
+  } else if (goblin2.x + 32 < hero.x) {
+    return false;
+  } else if (hero.y + 32 < goblin2.y) {
+    return false;
+  } else if (goblin2.y + 32 < hero.y) {
     return false;
   }
   return true;
@@ -128,10 +158,31 @@ function main () {
   monster.y += monsterDirY * monsterSpeed;
   handleWrapping(monster);
 
-  if (collision()) {
+  if (monsterCollision()) {
     score++;
+    if (score > highScore) {
+      highScore = score;
+    }
     monster.x = Math.random() * 512;
     monster.y = Math.random() * 480;
+  }
+
+  if (goblin1Collision()) {
+    score = 0;
+    document.getElementById('message').innerHTML = "shoot - a goblin gotcha";
+    hero.x = 200;
+    hero.y = 200;
+    goblin1.x = Math.random() * 512;
+    goblin1.y = Math.random() * 480;
+  }
+
+  if (goblin2Collision()) {
+    score = 0;
+    document.getElementById('message').innerHTML = "shoot - a goblin gotcha";
+    hero.x = 200;
+    hero.y = 200;
+    goblin2.x = Math.random() * 512;
+    goblin2.y = Math.random() * 480;
   }
 
   //change goblin1 direction
@@ -159,8 +210,10 @@ function main () {
   ctx.drawImage(goblinImg2, goblin2.x, goblin2.y);
 
   //add score
-  ctx.font = "32px sans-serif";
-  ctx.fillText('Score: ' + score, 35, 60)
+  ctx.font = "16px sans-serif";
+  ctx.fillStyle = "white"
+  ctx.fillText('Score: ' + score, 35, 47)
+  ctx.fillText('High Score: ' + highScore, 35, 65)
 
   requestAnimationFrame(main);
 }
