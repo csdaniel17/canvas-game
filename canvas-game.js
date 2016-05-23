@@ -49,16 +49,6 @@ var goblins = [
     speed: 1
   }
 ];
-//
-// var goblinImg2 = new Image();
-// goblinImg2.src = 'images/goblin.png';
-// var goblin2 = {
-//   x: 250,
-//   y: 250,
-//   dirX: 1,
-//   dirY: 0,
-//   speed: 1
-// };
 
 //move hero around board
 window.addEventListener('keydown', function(event) {
@@ -100,50 +90,6 @@ function collision(enemy) {
   }
   return true;
 }
-
-/*
-//hero & monster
-function monsterCollision() {
-  if (hero.x + 32 < monster.x) {
-    return false;
-  } else if (monster.x + 32 < hero.x) {
-    return false;
-  } else if (hero.y + 32 < monster.y) {
-    return false;
-  } else if (monster.y + 32 < hero.y) {
-    return false;
-  }
-  return true;
-}
-
-//hero & goblin1
-function goblin1Collision() {
-  if (hero.x + 32 < goblin1.x) {
-    return false;
-  } else if (goblin1.x + 32 < hero.x) {
-    return false;
-  } else if (hero.y + 32 < goblin1.y) {
-    return false;
-  } else if (goblin1.y + 32 < hero.y) {
-    return false;
-  }
-  return true;
-}
-
-//hero & goblin2
-function goblin2Collision() {
-  if (hero.x + 32 < goblin2.x) {
-    return false;
-  } else if (goblin2.x + 32 < hero.x) {
-    return false;
-  } else if (hero.y + 32 < goblin2.y) {
-    return false;
-  } else if (goblin2.y + 32 < hero.y) {
-    return false;
-  }
-  return true;
-}
-*/
 
 //players wrap around board
 function handleWrapping(object) {
@@ -209,42 +155,6 @@ function main () {
     }
     ctx.drawImage(goblinImage, goblin.x, goblin.y);
   }
-
-
-/*
-  updateEnemy(goblin1);
-  updateEnemy(goblin2);
-
-
-  if (monsterCollision()) {
-    score++;
-    if (score > highScore) {
-      highScore = score;
-    }
-    document.getElementById('message').innerHTML = "you got a monster!";
-    monster.x = Math.random() * 512;
-    monster.y = Math.random() * 480;
-  }
-
-  if (goblin1Collision()) {
-    score = 0;
-    document.getElementById('message').innerHTML = "oh shoot - a goblin got ya";
-    hero.x = 200;
-    hero.y = 200;
-    goblin1.x = Math.random() * 512;
-    goblin1.y = Math.random() * 480;
-  }
-
-  if (goblin2Collision()) {
-    score = 0;
-    document.getElementById('message').innerHTML = "oh shoot - a goblin got ya";
-    hero.x = 200;
-    hero.y = 200;
-    goblin2.x = Math.random() * 512;
-    goblin2.y = Math.random() * 480;
-  }
-*/
-
 
   //add score
   ctx.font = "16px sans-serif";
