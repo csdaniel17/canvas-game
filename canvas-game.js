@@ -1,13 +1,17 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
+
+//add game board
 var backgroundImage = new Image();
 backgroundImage.src = 'images/background.png';
+
+//add hero to board
 var heroImage = new Image();
 heroImage.src = 'images/hero.png';
 var hero = {
   x: 200,
   y: 200
-}
+};
 var heroSpeed = 5;
 
 //add monster to board
@@ -16,8 +20,10 @@ monsterImage.src = 'images/monster.png';
 var monster = {
   x: 300,
   y: 300
-}
+};
 var monsterSpeed = 5;
+var monsterStates = ['right', 'left', 'up', 'down', 'up-right', 'up-left', 'down-right', 'down-left'];
+var monsterState = 'right';
 
 window.addEventListener('keydown', function(event) {
   var key = event.keyCode;
@@ -49,10 +55,38 @@ function handleWrapping(object) {
   }
 }
 
+var counter = 0;
+
 function main () {
+  counter++;
   ctx.drawImage(backgroundImage, 0, 0);
   ctx.drawImage(heroImage, hero.x, hero.y);
-  monster.x += monsterSpeed;
+  if (counter % 50 === 0) {
+    var idx = Math.floor(Math.random() * monsterStates.length);
+    monsterState = monsterStates[idx];
+  }
+  if (monsterState === 'right') {
+    monster.x += monsterSpeed;
+  } else if (monsterState === 'left') {
+    monster.x += monsterSpeed;
+  } else if (monsterState === 'up') {
+    monster.y -= monsterSpeed;
+  } else if (monsterState === 'down') {
+    monster.y += monsterSpeed;
+  } else if (monsterState === 'up-right') {
+    monster.x += monsterSpeed;
+    monster.y -= monsterSpeed;
+  } else if (monsterState === 'up-left') {
+    monster.x -= monsterSpeed;
+    monster.y -= monsterSpeed;
+  } else if (monsterState === 'down-right') {
+    monster.x += monsterSpeed;
+    monster.y += monsterSpeed;
+  } else if (monsterState === 'down-left') {
+    monster.x -= monsterSpeed;
+    monster.y += monsterSpeed;
+  }
+
   handleWrapping(monster);
   ctx.drawImage(monsterImage, monster.x, monster.y);
   requestAnimationFrame(main);
