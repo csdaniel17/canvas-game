@@ -21,7 +21,7 @@ var hero = {
 
 //add monster to board
 var monsterImage = new Image();
-monsterImage.src = 'images/bull.png';
+monsterImage.src = 'images/banana.png';
 var monster = {
   x: 300,
   y: 300,
@@ -32,7 +32,7 @@ var monster = {
 
 //add 2 goblins to board
 var goblinImage = new Image();
-goblinImage.src = 'images/shell.png';
+goblinImage.src = 'images/barrel.png';
 var goblins = [
   {
     x: 150,
@@ -135,7 +135,7 @@ function main () {
     if (score > highScore) {
       highScore = score;
     }
-    document.getElementById('message').innerHTML = "you got a monster!";
+    document.getElementById('message').innerHTML = "you got a banana!";
     monster.x = Math.random() * 512;
     monster.y = Math.random() * 480;
   }
@@ -146,7 +146,7 @@ function main () {
     updateEnemy(goblin);
     if (collision(goblin)) {
       score = 0;
-      document.getElementById('message').innerHTML = "oh shoot - a goblin got ya";
+      document.getElementById('message').innerHTML = "oh shoot - a barrel got ya";
       hero.x = 200;
       hero.y = 200;
       goblin.x = Math.random() * 512;
