@@ -10,7 +10,7 @@ backgroundImage.src = 'images/background.png';
 
 //add hero to board
 var heroImage = new Image();
-heroImage.src = 'images/hero.png';
+heroImage.src = 'images/donkeykong.png';
 var hero = {
   x: 200,
   y: 200,
@@ -21,7 +21,7 @@ var hero = {
 
 //add monster to board
 var monsterImage = new Image();
-monsterImage.src = 'images/monster.png';
+monsterImage.src = 'images/bull.png';
 var monster = {
   x: 300,
   y: 300,
@@ -32,7 +32,7 @@ var monster = {
 
 //add 2 goblins to board
 var goblinImage = new Image();
-goblinImage.src = 'images/goblin.png';
+goblinImage.src = 'images/shell.png';
 var goblins = [
   {
     x: 150,
