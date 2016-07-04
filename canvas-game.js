@@ -158,9 +158,9 @@ function main () {
 
   //add score
   ctx.font = "16px sans-serif";
-  ctx.fillStyle = "white"
-  ctx.fillText('Score: ' + score, 35, 47)
-  ctx.fillText('High Score: ' + highScore, 35, 65)
+  ctx.fillStyle = "white";
+  ctx.fillText('Score: ' + score, 35, 47);
+  ctx.fillText('High Score: ' + highScore, 35, 65);
 
   requestAnimationFrame(main);
 }
